@@ -15,6 +15,10 @@ struct ContentView: View {
     
     let unitType = ["Temperature", "Length", "Volume", "Time"]
     
+    let unitsTemp = ["Fahrenheit", "Celsius", "Kelvin"]
+    let unitsLength = ["Milimeters", "Kilometers", "Feet", "Yards", "Miles"]
+    let unitsTime = ["Seconds", "Minutes", "Hours", "Days"]
+    let unitsVolume = ["Milliliters", "Liters", "Cups", "Pints", "Gallons"]
     
     //Computed Property for output value calculation
     var outputValue : Double {
@@ -61,41 +65,90 @@ struct ContentView: View {
                         //Section 1
                         Section("For Temperature Conversion"){
                             Picker("Input Unit", selection: $inputUnit) {
-                                ForEach(["Celsius", "Fahrenheit", "Kelvin"], id: \.self) {
+                                ForEach(unitsTemp, id: \.self) {
                                     Text($0)
                                 }
                             }
                             Picker("Output Unit", selection: $outputUnit){
-                                ForEach(["Celsius", "Fahrenheit", "Kelvin"], id: \.self){
+                                ForEach(unitsTemp, id: \.self){
                                     Text($0)
                                 }
                             }
                             TextField("Input Value", value: $inputValue, format: .number)
                                 .keyboardType(.decimalPad)
-                            
                         }
-                        
                         //Section2 for output value
                         Section("Converted Value"){
                             Text(outputValue.formatted())
                         }
-
+        
                     case "Length":
                         Section("For Length Conversion"){
-                            Text("Coming Soon!")
+                            Picker("Input Unit", selection: $inputUnit) {
+                                ForEach(unitsLength, id: \.self) {
+                                    Text($0)
+                                }
+                            }
+                            Picker("Output Unit", selection: $outputUnit){
+                                ForEach(unitsLength, id: \.self){
+                                    Text($0)
+                                }
+                            }
+                            TextField("Input Value", value: $inputValue, format: .number)
+                                .keyboardType(.decimalPad)
                         }
+                        //Section2 for output value
+                        Section("Converted Value"){
+                            //Text(outputValue.formatted())
+                            Text("Coming Soon...")
+                        }
+                        
                     case "Volume":
                         Section("For Volume Conversion"){
-                            Text("Coming Soon!")
+                            Picker("Input Unit", selection: $inputUnit){
+                                ForEach(unitsVolume, id: \.self){
+                                    Text($0)
+                                }
+                            }
+                            Picker("Output Unit", selection: $outputUnit){
+                                ForEach(unitsVolume, id: \.self){
+                                    Text($0)
+                                }
+                            }
+                            TextField("Input Value", value: $inputValue, format: .number)
+                                .keyboardType(.decimalPad)
                         }
+                        //Section2 for output value
+                        Section("Converted Value"){
+                            //Text(outputValue.formatted())
+                            Text("Coming Soon...")
+                        }
+                        
                     case "Time":
-                        Section("For Time COnversion"){
-                            Text("Coming Soon!")
+                        Section("For Time Conversion"){
+                            Picker("Input Unit", selection: $inputUnit){
+                                ForEach(unitsTime, id: \.self){
+                                    Text($0)
+                                }
+                            }
+                            Picker("Output Unit", selection: $outputUnit){
+                                ForEach(unitsTime, id: \.self){
+                                    Text($0)
+                                }
+                            }
+                            TextField("Input Value", value: $inputValue, format: .number)
+                                .keyboardType(.decimalPad)
                         }
+                        //Section2 for output value
+                        Section("Converted Value"){
+                            //Text(outputValue.formatted())
+                            Text("Coming Soon...")
+                        }
+                        
                     default:
                         Text("Coming Soon!")
-                }
-                            }
+                    }
+            }
             .navigationTitle("Unit Converter iOS")
         }
     }

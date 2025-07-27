@@ -9,8 +9,11 @@ import SwiftUI
 
 struct ContentView: View {
     @State private var inputValue = 0.0
+    @State private var unitSelected = "Temperature"
     @State private var inputUnit = "Fahrenheit"
     @State private var outputUnit = "Celsius"
+    
+    let unitType = ["Temperature", "Length", "Volume", "Time"]
     
     
     //Computed Property for output value calculation
@@ -45,29 +48,54 @@ struct ContentView: View {
     var body: some View {
         NavigationStack{
             Form{
-                //Section 1
                 Section{
-                    Picker("Input Unit", selection: $inputUnit) {
-                        ForEach(["Celsius", "Fahrenheit", "Kelvin"], id: \.self) {
+                    Picker("Unit Type", selection: $unitSelected){
+                        ForEach(unitType, id: \.self){
                             Text($0)
                         }
                     }
-                    Picker("Output Unit", selection: $outputUnit){
-                        ForEach(["Celsius", "Fahrenheit", "Kelvin"], id: \.self){
-                            Text($0)
+                    .pickerStyle(.navigationLink)
+                }
+                switch unitSelected {
+                    case "Temperature":
+                        //Section 1
+                        Section("For Temperature Conversion"){
+                            Picker("Input Unit", selection: $inputUnit) {
+                                ForEach(["Celsius", "Fahrenheit", "Kelvin"], id: \.self) {
+                                    Text($0)
+                                }
+                            }
+                            Picker("Output Unit", selection: $outputUnit){
+                                ForEach(["Celsius", "Fahrenheit", "Kelvin"], id: \.self){
+                                    Text($0)
+                                }
+                            }
+                            TextField("Input Value", value: $inputValue, format: .number)
+                                .keyboardType(.decimalPad)
+                            
                         }
-                    }
-                    TextField("Input Value", value: $inputValue, format: .number)
-                        .keyboardType(.decimalPad)
-                    
+                        
+                        //Section2 for output value
+                        Section("Converted Value"){
+                            Text(outputValue.formatted())
+                        }
+
+                    case "Length":
+                        Section("For Length Conversion"){
+                            Text("Coming Soon!")
+                        }
+                    case "Volume":
+                        Section("For Volume Conversion"){
+                            Text("Coming Soon!")
+                        }
+                    case "Time":
+                        Section("For Time COnversion"){
+                            Text("Coming Soon!")
+                        }
+                    default:
+                        Text("Coming Soon!")
                 }
-                
-                //Section2 for output value
-                Section("Converted Value"){
-                    Text(outputValue, format: .number)
-                }
-            
-            }
+                            }
             .navigationTitle("Unit Converter iOS")
         }
     }
